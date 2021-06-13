@@ -1,0 +1,27 @@
+
+h1 {
+  text-align: center;
+  font: 50px Helvetica;
+  position:relative;
+}
+
+h2 {
+  text-align: center;
+  /*padding: 50px; */
+  font: 20px Helvetica;
+}
+
+h3 {
+  /*padding: 50px; */
+  font: 18px Helvetica;
+}
+
+p, ul {
+  font: 15px Helvetica;
+}
+
+a {
+  color: #00B7FF;
+}
+
+

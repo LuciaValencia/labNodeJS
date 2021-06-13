@@ -1,0 +1,18 @@
+//#{title} e title --> variabili che imposto poi in index.js
+
+extends layout
+
+//per forza buona formattazione, se no non funziona
+block content 
+  h1= title + " architecture"
+  h2 Welcome to #{title} 
+
+  //IF
+  if showMe.show
+    h3  Projects 
+
+  //EACH
+  ul
+    each val, index in {1:"one",2:"two",3:"three"}
+      li= index + ": " + val 
+      //li= senza spazio - se no non funziona
