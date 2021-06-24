@@ -4,15 +4,27 @@ extends layout
 
 //per forza buona formattazione, se no non funziona
 block content 
-  h1= title + " architecture"
+  h1= title + " ARCHITECTURE"
   h2 Welcome to #{title} 
 
-  //IF
+  //IF (name="region" , id="region") input(type="hidden", name="_method", value="GET")
   if showMe.show
     h3  Projects 
+    
+     form(method="GET", action="/year/")
+       p Region
+         select 
+          for (var i = 0; i < 15; ++i){option (value= #{i}, name= #{i})}
+       p Year
+         input(type= "number", name= "year", min= "2010", max= "2021")
+       p
+         input(type= "submit")
 
-  //EACH
-  ul
-    each val, index in {1:"one",2:"two",3:"three"}
-      li= index + ": " + val 
-      //li= senza spazio - se no non funziona
+    //EACH
+    each key in json 
+      ul 
+        each k in key 
+          li= k
+          //li= senza spazio - se no non funziona
+
+ 

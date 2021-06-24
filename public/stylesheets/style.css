@@ -16,8 +16,13 @@ h3 {
   font: 18px Helvetica;
 }
 
+form{
+  text-align: right;
+}
+
 p, ul {
   font: 15px Helvetica;
+  /*display:inline*/;
 }
 
 a {

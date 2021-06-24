@@ -1,39 +1,12 @@
 //file helper per la connessione con il db
 const  {MongoClient}=require("mongodb");
-//var mysql = require("mysql2")
+
 require('dotenv').config();
 
 const uri = process.env.MONGO_URI
 const dbname="local"
 
-// class DB {
-//     constructor(){
-//         this.connection = mysql.createConnection({
-//             host: process.env.MYSQL_HOST,
-//             user: process.env.MYSQL_USER,
-//             password: process.env.MYSQL_PASSWORD,
-//             database: process.env.MYSQL_DATABASE
-//         })
-//     }
 
-//     async listProjects (tableName){
-//         return new Promise((resolve, reject) => {
-//             this.connection.query(`SELECT * FROM ${tableName}`, (error, results) =>{
-//                 if(error) reject (error)
-//                 resolve (results)
-//             })
-//         })
-//     }
-
-//     async projectsByYear (tableName, year){
-//         return new Promise((resolve, reject) => {
-//             this.connection.execute(`SELECT * FROM ${tableName} WHERE date LIKE ?`,[`${year}%`] ,(error, results) =>{ //execute: come query ma più specifica; % sanifica
-//                 if(error) reject (error)
-//                 resolve (results)
-//             })
-//         })
-//     }
-// }
 
 function connect (){
     return new Promise((resolve, reject) => {
@@ -88,4 +61,3 @@ module.exports.getAllUsers = getAllUsers;
 
 module.exports.findUserByMail = findUserByMail;
 
-//module.exports = DB;

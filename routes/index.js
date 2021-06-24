@@ -7,7 +7,9 @@ const jwt = require("jsonwebtoken");
 const {resolve}= require('path');
 const {rejects}= require('assert');
 const {token}= require('morgan');
-const db = require("/Users/luciavalencia/Desktop/Node.js/PROJECT/db.js");
+//const db = require("/Users/luciavalencia/Desktop/Node.js/PROJECT/db.js");
+const DB = require('/Users/luciavalencia/Desktop/Node.js/PROJECT/db1.js');
+const db = new DB()
 require('dotenv').config();
 const superServerSecret= process.env.SUPER_SECRET; //HASH: 7eb0c9acedafa211a86c99daae3b4ccab166998ff4b9f2fd5cc2bbb6fbbc9279
 
@@ -27,7 +29,8 @@ function generateAccessToken(username){
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  res.render('index', { title: 'LAVV', showMe:{show:true}}); //render: primo arg è il nome dell'engine .jade
+  const results = await db.listProjects("projects");
+  res.render('index', { title: 'LAVV', json: results, showMe:{show:true}}); //render: primo arg è il nome dell'engine .jade
 });
 
 router.get('/query', function(req, res, next) {
@@ -48,32 +51,25 @@ router.get("/new-password/:pwd", (req, res) => {
 router.post('/', function(req, res) {
   const{body} = req; //qnd un'app web fa reqs ad un server rest, i dati vengono inseriti nel body come json
   res.send(body);
-   
 });
 
-router.put('/login', async function (req, res) { //function(req, res) è uguale a (req, res) => {...} OJO ASYNC!!
-  const {email, password} = req.body; //REACT ce lo manderebbe in json nel body
+router.get('/year/:year', async (req, res) => {
+  const{params} = req; //qnd un'app web fa reqs ad un server rest, i dati vengono inseriti nel body come json
+  const{year} = params;
+  const result = await db.projectsByYear("projects", year)
 
-  if(email && password){
-    const hmac = createHmac ("sha256", superServerSecret);
-    console.log(db)
-    const user =  await db.findUserByMail(email)
-    console.log(user);
-    if(user){
-      const digest = hmac.update(password).digest("hex"); //digest che ci viene passata al login
-      if (user.password && user.password === digest) {
-        const token = await generateAccessToken(email);
-        res.header("JWT-TOKEN", token)
-        res.send({ message: `welcome ${email}` });
-        return;
-      }
-    }
-  }
-  else {
-  res.statusCode = 400;
-  res.send ({error: "wrong data"})
-  return }
+  res.render('index', { title: 'LAVV', json: result, showMe:{show:true}});
 });
+
+router.get('/region/:region', async (req, res) => {
+  const{params} = req; //qnd un'app web fa reqs ad un server rest, i dati vengono inseriti nel body come json
+  const{region} = params;
+  const result = await db.projectsByRegion("projects", region)
+
+  res.render('index', { title: 'LAVV', json: result, showMe:{show:true}});
+});
+
+
 
 
 
